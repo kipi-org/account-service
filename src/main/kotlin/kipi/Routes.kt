@@ -9,6 +9,10 @@ import kipi.dto.AccountDraft
 
 fun Application.routes(deps: Dependencies) = with(deps) {
     routing {
+        get("/health") {
+            call.respond(HttpStatusCode.OK)
+        }
+
         route("/customer/{userId}") {
             post<AccountDraft> {
                 call.respond(HttpStatusCode.OK, accountCreateController.handle(call.userId, it))
