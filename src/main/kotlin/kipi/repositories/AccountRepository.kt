@@ -8,6 +8,7 @@ import kipi.dto.AccountType
 import org.jetbrains.exposed.sql.*
 import org.jetbrains.exposed.sql.SqlExpressionBuilder.eq
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.math.BigDecimal.ZERO
 
 class AccountRepository {
     fun createAccount(userId: Long, accountDraft: AccountDraft) = transaction {
@@ -15,6 +16,7 @@ class AccountRepository {
             it[Accounts.userId] = userId
             it[type] = AccountTypes.select { AccountTypes.name eq accountDraft.type.toString() }
                 .map { row -> row[AccountTypes.id] }.first()
+            it[balance] = ZERO
             it[colorCode] = accountDraft.colorCode
             it[foreignAccountId] = accountDraft.foreignAccountId
         }[Accounts.id]
@@ -36,6 +38,7 @@ class AccountRepository {
         Account(
             id = resultRow[Accounts.id],
             userId = resultRow[Accounts.userId],
+            balance = resultRow[Accounts.balance],
             type = AccountType.valueOf(resultRow[AccountTypes.name]),
             colorCode = resultRow[Accounts.colorCode],
             foreignAccountId = resultRow[Accounts.foreignAccountId]

@@ -1,12 +1,20 @@
 package kipi.services
 
 import kipi.dto.AccountDraft
+import kipi.dto.AccountType
+import kipi.exceptions.AccountNotCreatedException
 import kipi.repositories.AccountRepository
 
 class AccountService(
     private val accountRepository: AccountRepository
 ) {
-    fun createAccount(userId: Long, accountDraft: AccountDraft) = accountRepository.createAccount(userId, accountDraft)
+    fun createAccount(userId: Long, accountDraft: AccountDraft): Long {
+        if (accountDraft.type == AccountType.MAIN) {
+            throw AccountNotCreatedException("Account with this type not exist")
+        }
+
+        return accountRepository.createAccount(userId, accountDraft)
+    }
 
     fun findAccounts(userId: Long) = accountRepository.findAccounts(userId)
 

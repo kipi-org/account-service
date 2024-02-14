@@ -1,5 +1,5 @@
 package kipi.dto
 
 enum class AccountType {
-    CURRENCY, TINKOFF, ALPHA, SBER
+    MAIN, CURRENCY, TINKOFF, ALPHA, SBER
 }

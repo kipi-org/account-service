@@ -23,6 +23,7 @@
             <column name="accTypeId" type="number">
                 <constraints nullable="false" foreignKeyName="fk_account_type" references='acc_types(id)'/>
             </column>
+            <column name="balance" type="number"/>
             <column name="colorCode" type="varchar"/>
             <column name="foreignAccountId" type="varchar"/>
         </createTable>

@@ -19,4 +19,6 @@ class Config {
     val dbName = getEnv("DB_NAME")
     val dbUser = getEnv("DB_USER")
     val dbPassword = getEnv("DB_PASSWORD")
+
+    val defaultMainAccountColor = get("main.account.color.default")
 }

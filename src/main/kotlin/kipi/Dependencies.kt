@@ -12,5 +12,5 @@ class Dependencies {
     private val accountService = AccountService(accountRepository)
     val accountCreateController = AccountCreateController(accountService)
     val accountDeleteController = AccountDeleteController(accountService)
-    val accountsFindController = AccountsFindController(accountService)
+    val accountsFindController = AccountsFindController(accountService, config)
 }
