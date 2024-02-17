@@ -10,7 +10,7 @@ class AccountService(
 ) {
     fun createAccount(userId: Long, accountDraft: AccountDraft): Long {
         if (accountDraft.type == AccountType.MAIN) {
-            throw AccountNotCreatedException("Account with this type not exist")
+            throw AccountNotCreatedException("account.type.not.exist")
         }
 
         return accountRepository.createAccount(userId, accountDraft)
