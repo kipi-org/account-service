@@ -3,6 +3,7 @@ package kipi
 import kipi.controllers.AccountCreateController
 import kipi.controllers.AccountDeleteController
 import kipi.controllers.AccountsFindController
+import kipi.controllers.ForeignAccountsCreateController
 import kipi.repositories.AccountRepository
 import kipi.services.AccountService
 
@@ -13,4 +14,5 @@ class Dependencies {
     val accountCreateController = AccountCreateController(accountService)
     val accountDeleteController = AccountDeleteController(accountService)
     val accountsFindController = AccountsFindController(accountService, config)
+    val foreignAccountsCreateController = ForeignAccountsCreateController(accountService)
 }
