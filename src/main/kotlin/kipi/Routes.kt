@@ -30,6 +30,10 @@ fun Application.routes(deps: Dependencies) = with(deps) {
             delete("/account/{accountId}") {
                 call.respond(OK, accountDeleteController.handle(call.userId, call.accountId))
             }
+
+            delete {
+                call.respond(OK, allAccountsDeleteController.handle(call.userId))
+            }
         }
     }
 }

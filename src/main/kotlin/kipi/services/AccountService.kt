@@ -19,4 +19,6 @@ class AccountService(
     fun findAccounts(userId: Long) = accountRepository.findAccounts(userId)
 
     fun deleteAccount(userId: Long, accountId: Long) = accountRepository.deleteAccount(accountId, userId)
+
+    fun deleteAllAccounts(userId: Long) = accountRepository.deleteAllAccounts(userId)
 }

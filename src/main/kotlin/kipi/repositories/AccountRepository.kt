@@ -34,6 +34,12 @@ class AccountRepository {
         }
     }
 
+    fun deleteAllAccounts(userId: Long) = transaction {
+        Accounts.deleteWhere {
+            Accounts.userId eq userId
+        }
+    }
+
     private fun mapToAccount(resultRow: ResultRow): Account =
         Account(
             id = resultRow[Accounts.id],
