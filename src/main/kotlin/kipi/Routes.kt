@@ -2,10 +2,10 @@ package kipi
 
 import io.ktor.http.HttpStatusCode.Companion.OK
 import io.ktor.server.application.*
+import io.ktor.server.request.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
 import io.ktor.server.util.*
-import kipi.dto.AccountDraft
 
 fun Application.routes(deps: Dependencies) = with(deps) {
     routing {
@@ -14,12 +14,12 @@ fun Application.routes(deps: Dependencies) = with(deps) {
         }
 
         route("/customer/{userId}") {
-            post<AccountDraft> {
-                call.respond(OK, accountCreateController.handle(call.userId, it))
+            post {
+                call.respond(OK, accountCreateController.handle(call.userId, call.receive()))
             }
 
-            post<List<AccountDraft>>("/foreign") {
-                val relations = foreignAccountsCreateController.handle(call.userId, it)
+            post("/foreign") {
+                val relations = foreignAccountsCreateController.handle(call.userId, call.receive())
                 call.respond(OK, relations)
             }
 
@@ -28,11 +28,13 @@ fun Application.routes(deps: Dependencies) = with(deps) {
             }
 
             delete("/account/{accountId}") {
-                call.respond(OK, accountDeleteController.handle(call.userId, call.accountId))
+                accountDeleteController.handle(call.userId, call.accountId)
+                call.respond(OK)
             }
 
             delete {
-                call.respond(OK, allAccountsDeleteController.handle(call.userId))
+                allAccountsDeleteController.handle(call.userId)
+                call.respond(OK)
             }
         }
     }
